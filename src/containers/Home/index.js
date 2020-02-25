@@ -153,20 +153,23 @@ import {request} from '../../actions/ServiceAction';
 import {connect} from 'react-redux';
 import {SEARCH_REPO} from '../../actions/ActionTypes';
 import constant from '../../constants';
+import {store} from '../../store';
 
 const searchHandler = value => {
-  request(
-    `${constant.SEARCH_REPO}react+native+splash+screen`,
-    'get',
-    {},
-    SEARCH_REPO,
-    true,
-    () => {
-      alert('success');
-    },
-    () => {
-      alert('falil');
-    },
+  store.dispatch(
+    request(
+      `${constant.SEARCH_REPO}react+native+splash+screen`,
+      'get',
+      {},
+      SEARCH_REPO,
+      true,
+      () => {
+        alert('success');
+      },
+      () => {
+        alert('falil');
+      },
+    ),
   );
 };
 const Home = () => {
