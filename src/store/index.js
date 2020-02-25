@@ -27,7 +27,7 @@ const logger = createLogger({
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: [],
+  whitelist: ['searchDataStorage'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

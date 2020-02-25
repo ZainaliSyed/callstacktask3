@@ -17,12 +17,14 @@ import {
   LOGOUT,
   SOCKET_DUMP,
   SEARCH_REPO,
+  SEARCH_DATA_STORAGE,
 } from '../actions/ActionTypes';
 import userLocation from '../reducers/userLocation';
 const appReducer = combineReducers({
   loginReducer: serviceReducer(LOGIN),
   singupReducer: serviceReducer(SIGNUP),
   searchRepoReducer: serviceReducer(SEARCH_REPO),
+  searchDataStorage: serviceReducer(SEARCH_DATA_STORAGE),
   userLocation,
 });
 

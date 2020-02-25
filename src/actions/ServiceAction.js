@@ -71,6 +71,7 @@ export function requestAction(types) {
   };
 }
 export function success(types, data) {
+  console.log('Success type ', data);
   return {
     data,
     type: types.SUCCESS,
@@ -86,5 +87,19 @@ export function failure(types, errorMessage) {
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function generalSaveAction(
+  type: string,
+  data: object,
+  isConcat: Boolean = false,
+  meta: Object,
+) {
+  return {
+    type,
+    data,
+    isConcat,
+    meta,
   };
 }

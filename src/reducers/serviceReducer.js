@@ -5,89 +5,98 @@
 //  Created by Retrocube on 10/4/2019, 9:22:21 AM.
 //  Copyright © 2019 Retrocube. All rights reserved.
 //
-import * as types from "../actions/ActionTypes";
-import _ from "lodash";
+import * as types from '../actions/ActionTypes';
+import _ from 'lodash';
 const initialState = {
-	isFetching: false,
-	failure: false,
-	errMessage: "",
-	data: [],
-	meta: {}
+  isFetching: false,
+  failure: false,
+  errMessage: '',
+  data: [],
+  meta: {},
+  listData: [('jahja': {})],
 };
 export default type => {
-	return (state = initialState, action) => {
-		switch (action.type) {
-			case type.REQUEST:
-				return {
-					...state,
-					isFetching: true
-				};
-			case type.SUCCESS:
-				return {
-					...state,
-					failure: false,
-					isFetching: false,
-					errorMessage: "",
-					data: action.data.data,
-					meta: action.data.meta
-				};
-			case type.FAILURE:
-				return {
-					...state,
-					data: {},
-					failure: true,
-					isFetching: false,
-					errorMessage: action.errorMessage
-				};
-			case type.UPDATE:
-				return updateOperation(state, action, type.UPDATE);
-			case type.DELETE:
-				return deleteOperation(state, action);
-			default:
-				return state;
-		}
-	};
+  return (state = initialState, action) => {
+    switch (action.type) {
+      case type.REQUEST:
+        return {
+          ...state,
+          isFetching: true,
+        };
+      case type.SUCCESS:
+        return {
+          ...state,
+          failure: false,
+          isFetching: false,
+          errorMessage: '',
+          data: action.data.data,
+          meta: action.data.meta,
+        };
+      case type.FAILURE:
+        return {
+          ...state,
+          data: {},
+          failure: true,
+          isFetching: false,
+          errorMessage: action.errorMessage,
+        };
+      case type.UPDATE:
+        return updateOperation(state, action, type.UPDATE);
+      case type.DELETE:
+        return deleteOperation(state, action);
+
+      case type.ADD_OBJECT:
+        const tempData = _.cloneDeep(state.data);
+        let a = {...tempData, ...action.data};
+        return {
+          ...state,
+          data: a,
+        };
+      default:
+        return state;
+    }
+  };
 };
 const updateOperation = (state, action, type) => {
-	isArray = Array.isArray(state.data);
-	switch (type) {
-		default:
-			if (action.key && action.path) {
-				return {};
-			} else {
-				if (isArray) {
-					return {
-						...state,
-						data: [...state.data, action.data]
-					};
-				} else {
-					return {
-						...state,
-						data: { ...state.data, ...action.data }
-					};
-				}
-			}
-	}
+  isArray = Array.isArray(state.data);
+  switch (type) {
+    default:
+      if (action.key && action.path) {
+        return {};
+      } else {
+        if (isArray) {
+          return {
+            ...state,
+            data: [...state.data, action.data],
+          };
+        } else {
+          return {
+            ...state,
+            data: {...state.data, ...action.data},
+          };
+        }
+      }
+  }
 };
 const deleteOperation = (state, action) => {
-	isArray = Array.isArray(state.data);
-	if (action.key && action.where) {
-		if (isArray) {
-			const newData = [...state.data];
-			const index = state.data.findIndex(
-				item => item[action.key] === action.where
-			);
-			newData.splice(index, 1);
-			return {
-				...state,
-				data: newData
-			};
-		} else {
-			return state;
-		}
-	} else {
-		return state;
-	}
+  isArray = Array.isArray(state.data);
+  if (action.key && action.where) {
+    if (isArray) {
+      const newData = [...state.data];
+      const index = state.data.findIndex(
+        item => item[action.key] === action.where,
+      );
+      newData.splice(index, 1);
+      return {
+        ...state,
+        data: newData,
+      };
+    } else {
+      return state;
+    }
+  } else {
+    return state;
+  }
 };
 //_.result(this.data, "allemp.0.employee_name")
 // _.set(this.data, "allemp.1", {
