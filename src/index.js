@@ -22,6 +22,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 export default class App extends Component {
   componentDidMount() {
+    //   console.log()
     HttpServiceManager.initialize(constant.baseURL, {
       token: constant.applicationToken,
     });
