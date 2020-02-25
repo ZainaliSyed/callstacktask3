@@ -147,15 +147,16 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Text,
+  ScrollView,
 } from 'react-native';
 import {Images} from '../../theme';
 import {request} from '../../actions/ServiceAction';
-import {connect} from 'react-redux';
 import {SEARCH_REPO} from '../../actions/ActionTypes';
 import constant from '../../constants';
 import {store} from '../../store';
-
-const searchHandler = value => {
+import moment from 'moment';
+const searchHandler = (value, setList) => {
   store.dispatch(
     request(
       `${constant.SEARCH_REPO}react+native+splash+screen`,
@@ -163,8 +164,9 @@ const searchHandler = value => {
       {},
       SEARCH_REPO,
       true,
-      () => {
-        alert('success');
+      res => {
+        console.log('Hello world', res.data.items);
+        setList(res.data.items);
       },
       () => {
         alert('falil');
@@ -174,20 +176,65 @@ const searchHandler = value => {
 };
 const Home = () => {
   const [value, onChangeText] = React.useState('');
+  const [list, setList] = React.useState([]);
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textField}
-        onChangeText={text => onChangeText(text)}
-        value={value}
-        placeholder="Search repo"
-      />
-      {value ? (
-        <TouchableOpacity onPress={searchHandler} style={styles.button}>
-          <Image source={Images.magnifyingGlass} />
-        </TouchableOpacity>
-      ) : null}
-    </View>
+    <>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textField}
+          onChangeText={text => onChangeText(text)}
+          value={value}
+          placeholder="Search repo"
+        />
+        {value ? (
+          <TouchableOpacity
+            onPress={text => searchHandler(text, setList)}
+            style={styles.button}>
+            <Image source={Images.magnifyingGlass} />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+      <View style={styles.headerContainer}>
+        <View style={[styles.flexOne, styles.itemCenter]}>
+          <Text>ID</Text>
+        </View>
+        <View style={[styles.flexTwo, styles.itemCenter]}>
+          <Text>Repo Title</Text>
+        </View>
+        <View style={[styles.flexTwo, styles.itemCenter]}>
+          <Text>Owner</Text>
+        </View>
+        <View style={[styles.flexOne, styles.itemCenter]}>
+          <Text>Stars</Text>
+        </View>
+        <View style={[styles.flexTwo, styles.itemCenter]}>
+          <Text>Created at</Text>
+        </View>
+      </View>
+      <ScrollView>
+        {list.map((data, index) => (
+          <View key={index} style={styles.bodyContainer}>
+            <View style={styles.flexOne}>
+              <Text style={styles.text}>{data.id}</Text>
+            </View>
+            <View style={styles.flexTwo}>
+              <Text style={styles.text}>{data.name}</Text>
+            </View>
+            <View style={styles.flexTwo}>
+              <Text style={styles.text}>{data.owner.login}</Text>
+            </View>
+            <View style={styles.flexOne}>
+              <Text style={styles.text}>star</Text>
+            </View>
+            <View style={styles.flexTwo}>
+              <Text style={styles.text}>
+                {new Date(data.created_at).toLocaleDateString()}
+              </Text>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </>
   );
 };
 
@@ -200,6 +247,30 @@ const styles = StyleSheet.create({
   },
   textField: {height: 40, flex: 1, padding: 10},
   button: {padding: 10},
+  flexOne: {flex: 1},
+  flexTwo: {flex: 2},
+  headerContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#b1b1b1',
+    margin: 10,
+    paddingVertical: 10,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  bodyContainer: {
+    flexDirection: 'row',
+    marginHorizontal: 10,
+  },
+  text: {
+    fontSize: 10,
+    padding: 5,
+    borderWidth: 1,
+    flex: 1,
+    borderColor: 'gray',
+  },
+  itemCenter: {
+    alignItems: 'center',
+  },
 });
 
 export default Home;

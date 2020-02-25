@@ -115,7 +115,7 @@ class HttpServiceManager {
             );
             if (response.status === 200) {
               resolve({
-                data: response.data.data,
+                data: response.data,
                 meta: response.data.meta,
               });
             }
