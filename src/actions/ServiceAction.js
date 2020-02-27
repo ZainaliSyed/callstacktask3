@@ -1,10 +1,3 @@
-//
-//  ServiceAction.js:
-//  BoilerPlate
-//
-//  Created by Retrocube on 10/4/2019, 9:07:24 AM.
-//  Copyright © 2019 Retrocube. All rights reserved.
-//
 import {
   GENERAL_ACTION,
   GENERAL_ACTION_MULTIPLE_REQUEST,

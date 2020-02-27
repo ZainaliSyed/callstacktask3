@@ -20,22 +20,24 @@ const searchHandler = (value, setList, storeData) => {
   if (refectorValue[0] === '+') {
     refectorValue = refectorValue.slice(1);
   }
-  if (storeData[refectorValue]) {
-    setList(storeData[refectorValue]);
-  } else {
-    store.dispatch(
-      request(
-        `${constant.SEARCH_REPO}${refectorValue}`,
-        'get',
-        {},
-        SEARCH_REPO,
-        true,
-        res => {
-          searchSuccess(res.data.items, setList, refectorValue);
-        },
-        () => {},
-      ),
-    );
+  if (refectorValue.indexOf('+') != -1) {
+    if (storeData[refectorValue]) {
+      setList(storeData[refectorValue]);
+    } else {
+      store.dispatch(
+        request(
+          `${constant.SEARCH_REPO}${refectorValue}`,
+          'get',
+          {},
+          SEARCH_REPO,
+          true,
+          res => {
+            searchSuccess(res.data.items, setList, refectorValue);
+          },
+          () => {},
+        ),
+      );
+    }
   }
 };
 const searchSuccess = (data, setList, key) => {
@@ -54,7 +56,7 @@ const Home = props => {
         <TextInput
           style={styles.textField}
           onChangeText={text => onChangeText(text)}
-          value={value}
+          value={value.toLowerCase()}
           placeholder="Search repo"
         />
         {value ? (

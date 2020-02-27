@@ -1,31 +1,10 @@
-//
-//  index.js:
-//  BoilerPlate
-//
-//  Created by Retrocube on 10/4/2019, 9:21:40 AM.
-//  Copyright © 2019 Retrocube. All rights reserved.
-//
 import {combineReducers} from 'redux';
 import serviceReducer from './serviceReducer';
-import {
-  LOGIN,
-  SIGNUP,
-  SOCKET_INFO,
-  LIST_GEOFANCE,
-  USER_LOCATION,
-  REAL_TIME_TRACKING,
-  LOGOUT,
-  SOCKET_DUMP,
-  SEARCH_REPO,
-  SEARCH_DATA_STORAGE,
-} from '../actions/ActionTypes';
-import userLocation from '../reducers/userLocation';
+import {LOGOUT, SEARCH_REPO, SEARCH_DATA_STORAGE} from '../actions/ActionTypes';
+
 const appReducer = combineReducers({
-  loginReducer: serviceReducer(LOGIN),
-  singupReducer: serviceReducer(SIGNUP),
   searchRepoReducer: serviceReducer(SEARCH_REPO),
   searchDataStorage: serviceReducer(SEARCH_DATA_STORAGE),
-  userLocation,
 });
 
 const rootReducer = (state, action) => {

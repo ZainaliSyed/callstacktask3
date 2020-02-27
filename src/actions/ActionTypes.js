@@ -1,10 +1,3 @@
-//
-//  ActionTypes.js:
-//  BoilerPlate
-//
-//  Created by Retrocube on 10/4/2019, 9:06:43 AM.
-//  Copyright © 2019 Retrocube. All rights reserved.
-//
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
@@ -45,10 +38,7 @@ export const NETWORK_INFO = 'NETWORK_INFO';
 //LOCATION ACTIONS
 export const USER_LOCATION = createRequestTypes('USER_LOCATION');
 //APP GENERAL ACTIONS
-export const LOGIN = createRequestTypes('LOGIN');
-export const SIGNUP = createRequestTypes('SIGNUP');
-export const FORGOT_PASSWORD = createRequestTypes('FORGOT_PASSWORD');
-export const CHANGE_PASSWORD = createRequestTypes('CHANGE_PASSWORD');
+
 export const LOGOUT = 'LOGOUT';
 //APP RELATED ACTIONS
 export const SEARCH_REPO = createRequestTypes('SEARCH_REPO');
