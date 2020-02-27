@@ -1,11 +1,5 @@
 //
-//  NavigationService.js:
-//  BoilerPlate
-//
-//  Created by Retrocube on 10/4/2019, 9:35:30 AM.
-//  Copyright © 2019 Retrocube. All rights reserved.
-//
-// import {NavigationActions, StackActions, DrawerActions} from 'react-navigation';
+
 import {
   NavigationContainer,
   DrawerActions,

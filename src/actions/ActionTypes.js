@@ -26,17 +26,12 @@ function createRequestTypes(base) {
 }
 //DEFAULT ACTIONS
 export const GENERAL_ACTION = 'GENERAL_ACTION';
-export const GENERAL_ACTION_MULTIPLE_REQUEST =
-  'GENERAL_ACTION_MULTIPLE_REQUEST';
+
 export const NO_INTERNET = 'NO_INTERNET';
-//SOCKET DEFAULT ACTIONS
-export const SOCKET_INFO = createRequestTypes('SOCKET_INFO');
-export const SOCKET_DUMP = createRequestTypes('SOCKET_DUMP');
-export const SOCKET_WRITE = 'SOCKET_WRITE';
+
 //NETWORK DEFAULT ACTION
 export const NETWORK_INFO = 'NETWORK_INFO';
-//LOCATION ACTIONS
-export const USER_LOCATION = createRequestTypes('USER_LOCATION');
+
 //APP GENERAL ACTIONS
 
 export const LOGOUT = 'LOGOUT';
