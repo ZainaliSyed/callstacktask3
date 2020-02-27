@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {Images} from '../../theme';
 import {request, success, generalSaveAction} from '../../actions/ServiceAction';
@@ -15,22 +16,24 @@ import constant from '../../constants';
 import {store} from '../../store';
 import {connect} from 'react-redux';
 const searchHandler = (value, setList, storeData) => {
-  if (storeData[value]) {
-    setList(storeData[value]);
+  var refectorValue = value.replace(/[^A-Z0-9]+/gi, '+');
+  if (refectorValue[0] === '+') {
+    refectorValue = refectorValue.slice(1);
+  }
+  if (storeData[refectorValue]) {
+    setList(storeData[refectorValue]);
   } else {
     store.dispatch(
       request(
-        `${constant.SEARCH_REPO}${value}`,
+        `${constant.SEARCH_REPO}${refectorValue}`,
         'get',
         {},
         SEARCH_REPO,
         true,
         res => {
-          searchSuccess(res.data.items, setList, value);
+          searchSuccess(res.data.items, setList, refectorValue);
         },
-        () => {
-          alert('Error');
-        },
+        () => {},
       ),
     );
   }
@@ -43,7 +46,7 @@ const searchSuccess = (data, setList, key) => {
 };
 const Home = props => {
   const {searchDataStorage} = props;
-  const [value, onChangeText] = React.useState('react+native+splash+screen');
+  const [value, onChangeText] = React.useState('');
   const [list, setList] = React.useState([]);
   return (
     <>
@@ -106,6 +109,7 @@ const Home = props => {
             <Text>Data not found</Text>
           </View>
         ) : null}
+        <SafeAreaView />
       </ScrollView>
     </>
   );
